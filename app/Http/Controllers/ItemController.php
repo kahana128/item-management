@@ -54,4 +54,35 @@ class ItemController extends Controller
 
         return view('item.add');
     }
+
+    public function edit(Request $request)//edit メソッドは、リクエストを受け取るために定義されている。
+    {
+        if ($request->isMethod('post')) {
+            
+            // バリデーション
+            $this->validate($request, [
+                'name' => 'required|max:100',
+            ]);
+            
+            $item= Item::where('id', '=' , $request->id)->first();
+            $item->name = $request->name;
+            $item->type = $request->type;
+            $item->detail = $request->detail;
+            $item->save();//レコードを上書き保存する
+
+        return redirect('/items');
+        }
+
+        $item = Item::find($request->id);
+
+        return view('item.edit', compact('item'));
+    }
+
+    public function delete(Request $request){
+        $item = Item::where('id', '=' , $request->id)->first();
+        $item->delete();
+
+        return redirect('/items');
+    }
+    
 }
