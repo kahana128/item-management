@@ -39,6 +39,8 @@ class ItemController extends Controller
             // バリデーション
             $this->validate($request, [
                 'name' => 'required|max:100',
+                'type' => 'nullable|max:50', 
+                'detail' => 'nullable|max:500',
             ]);
 
             // 商品登録
@@ -62,6 +64,8 @@ class ItemController extends Controller
             // バリデーション
             $this->validate($request, [
                 'name' => 'required|max:100',
+                'type' => 'nullable|max:50', 
+                'detail' => 'nullable|max:500',
             ]);
             
             $item= Item::where('id', '=' , $request->id)->first();
